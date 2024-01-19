@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="assets/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <script src="assets/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe Game</h1>
+        <table id="board" class="table-bordered"></table>
+    </div>
+    <script>
+        let gameBoard = document.getElementById("board");
+        const BOARD_SIZE = 10;
+        const WINNING_SIZE = 5;
+        let gameMatrix = [];
+        let stepCount = 0;
+        let currentStep = "";
+        // create a matrix according to the board game size
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            gameMatrix[i] = [];
+            for (let j = 0; j < BOARD_SIZE; j++) {
+                gameMatrix[i][j] = "&nbsp;&nbsp;";
+            }
+        }
+        function clickHandler(x, y) {
+            currentStep = stepCount % 2 == 0 ? "x" : "o";
+            gameMatrix[x][y] = stepCount % 2 == 0 ? "x" : "o";
+            stepCount++;
+            printGameBoard();
+            let result = checkHorizontalWin(gameMatrix, [x, y]);
+            // console.log("Win");
+            console.log(result);
+        }
+        console.log(gameMatrix);
+        function printGameBoard() {
+            let tableHTMLString = "";
+            for (let i = 0; i < BOARD_SIZE; i++) {
+                tableHTMLString += "<tr>";
+                for (let j = 0; j < BOARD_SIZE; j++) {
+                    tableHTMLString += "<td class=\"border px-4 py-3\" onclick=\"clickHandler(" + i + ", " + j + ")\">";
+                    tableHTMLString += gameMatrix[i][j];
+                    tableHTMLString += "</td>";
+                }
+                tableHTMLString += "</tr>";
+            }
+            gameBoard.innerHTML = tableHTMLString;
+        }
+        printGameBoard();
+        let checkHorizontalWin = (gameMatrix, currentPosition) => {
+            let x = currentPosition[0];
+            let y = currentPosition[1];
+            let minY, maxY;
+            let result = false;
+            // find min y
+            if (y - WINNING_SIZE < 0) {
+                minY = 0;
+            } else {
+                minY = y - WINNING_SIZE + 1;
+            }
+            // find max y
+            if (y + WINNING_SIZE >= BOARD_SIZE - 1) {
+                maxY = BOARD_SIZE - 1;
+            } else {
+                maxY = y + WINNING_SIZE;
+            }
+            let count = 0;
+            for (let i = minY; i <= maxY; i++) {
+                if (gameMatrix[x][i] == currentStep) {
+                    count += 1;
+                    if (count >= WINNING_SIZE) {
+                        result = true;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+            return result;
+        }
+        // TODO: Check vertical, X
+    </script>
+</body>
+
+</html>
