@@ -16,7 +16,7 @@
     </div>
     <script>
         let gameBoard = document.getElementById("board");
-        const BOARD_SIZE = 10;
+        const BOARD_SIZE = 20;
         const WINNING_SIZE = 5;
         let gameMatrix = [];
         let stepCount = 0;
@@ -61,7 +61,7 @@
             if (y - WINNING_SIZE < 0) {
                 minY = 0;
             } else {
-                minY = y - WINNING_SIZE + 1;
+                minY = y - WINNING_SIZE;
             }
             // find max y
             if (y + WINNING_SIZE >= BOARD_SIZE - 1) {
@@ -75,6 +75,7 @@
                     count += 1;
                     if (count >= WINNING_SIZE) {
                         result = true;
+                        break;
                     }
                 } else {
                     count = 0;
