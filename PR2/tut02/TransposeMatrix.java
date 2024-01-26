@@ -3,7 +3,7 @@ package tut02;
 public class TransposeMatrix {
 
 	public static void main(String[] args) {
-		int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 }};
 		printMatrix(matrix);
 		System.out.println();
 		int[][] transposedMatrix = tranposeMatrix(matrix);
@@ -20,9 +20,11 @@ public class TransposeMatrix {
 	}
 
 	public static int[][] tranposeMatrix(int[][] matrix) {
-		int[][] transposedMatrix = new int[matrix.length][matrix[0].length];
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
+		int row = matrix.length;
+		int col = matrix[0].length;
+		int[][] transposedMatrix = new int[col][row];
+		for (int i = 0; i < col; i++) {
+			for (int j = 0; j < row; j++) {
 				transposedMatrix[i][j] = matrix[j][i];
 			}
 		}
